@@ -2,5 +2,8 @@ Split up instructions.h
 instructions.c to put functions
 LI_BUILD_ADDI, LI_BUILD_ADDR, ... etc functions
 make clean
+more tests
+a bit more source file re-organization
+better README
 
 The rest of the instructions (obviously)
