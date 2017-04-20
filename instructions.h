@@ -8,7 +8,7 @@
 
 #ifndef INSTRUCTIONS_DBB
 #define INSTRUCTIONS_DBB
-/* Broken for count = 1? */
+/* TODO: translate BIT_BUILD into a macro */
 uint16_t BIT_BUILD(int count,...)
 {
   va_list ap;
@@ -86,6 +86,11 @@ uint16_t BIT_BUILD(int count,...)
 #define LI_SET_DR(i, n)  do { i = i | n << 9; } while(0);
 #define LI_SET_SR1(i, n) do { i = i | n << 6; } while(0);
 #define LI_SET_SR2(i, n) do { i = i | n; } while(0);
+#define LI_SET_IMM(i, n) do { if(i >= 0) i = i | n; \
+  else {					    \
+    int M = (~n) - 1;				    \
+    M = M & BIT_BUILD(5, 0, 1, 2, 3, 4);	    \
+    i = i | M;}} while(0);
 
 #define LI_GETTRAPVECTOR(i) (i & BIT_BUILD(8, 0, 1, 2, 3, 4, 5, 6, 7))
 #define LI_TRAPVECTOR_PUTS BIT_BUILD(2, 1, 5) //0x22

@@ -86,7 +86,7 @@ int* lc3k_add(lc3machine_t* m)
   }
   y = (m->registers)[sr];
 
-  printf("x=%d y=%d\n", x, y);
+  printf("x=%d y=%d dr=%d\n", x, y, dr);
   
   (m->registers)[dr] = x + y;
 

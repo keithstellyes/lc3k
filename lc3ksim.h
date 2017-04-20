@@ -5,7 +5,7 @@
 #ifndef LC3KSIM_H
 #define LC3KSIM_H
 
-#include "instructions.def"
+#include "instructions.h"
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdbool.h>

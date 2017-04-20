@@ -1,5 +1,5 @@
 #include "lc3ksim.h"
-#include "instructions.def"
+#include "instructions.h"
 #include <string.h>
 
 int main()
