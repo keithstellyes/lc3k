@@ -1,0 +1,6 @@
+Split up instructions.h
+instructions.c to put functions
+LI_BUILD_ADDI, LI_BUILD_ADDR, ... etc functions
+make clean
+
+The rest of the instructions (obviously)
