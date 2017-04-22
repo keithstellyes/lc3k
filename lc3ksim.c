@@ -167,3 +167,8 @@ uint16_t lc3k_mk_jmp(uint16_t base_reg)
   LI_SET_BR(inst, base_reg);
   return inst;
 }
+
+uint16_t lc3k_mk_ret()
+{
+  return INSTRUCTION_RET;
+}
