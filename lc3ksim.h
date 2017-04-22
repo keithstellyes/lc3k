@@ -26,6 +26,9 @@ int lc3k_step(lc3machine_t* m);
 int16_t lc3k_addi_getval(uint16_t i);
 int* lc3k_add(lc3machine_t* m);
 int* lc3k_and(lc3machine_t* m);
+int* lc3k_not(lc3machine_t* m);
+int* lc3k_jmp(lc3machine_t* m);
 char* lc3k_userdebug_printregisters(lc3machine_t* m);
+
 
 #endif /* LC3KSIM_H */

@@ -14,6 +14,17 @@ bool lc3k_sameopcode(uint16_t a, uint16_t b)
     return a == b;
 }
 
+int* lc3k_not(lc3machine_t* m)
+{
+  uint16_t inst = (m->memory)[m->pc];
+  uint16_t dr = LI_GET_DR(inst);
+  uint16_t sr = LI_GET_SR1(inst);
+
+  (m->registers)[dr] = ~((m->registers)[sr]);
+
+  return NULL;
+}
+
 /*
  * Returns a value based on what has happened with the step.
  * Returns a negative status on error.
@@ -26,11 +37,15 @@ int lc3k_step(lc3machine_t* m)
     uint16_t inst = (m->memory)[pc];
     
      if(LI_GETTRAPVECTOR((inst) == LI_TRAPVECTOR_PUTS)) {
-      //printf("PUTS!\n");
-      lc3k_puts(m);
+       //printf("PUTS!\n");
+       lc3k_puts(m);
       } else if(lc3k_sameopcode(inst, OPCODE_ADD)) {
-	lc3k_add(m);
-      }
+       lc3k_add(m);
+     } else if(lc3k_sameopcode(inst, OPCODE_NOT)) {
+       lc3k_not(m);
+     } else if(lc3k_sameopcode(inst, OPCODE_JMP)) {
+       lc3k_jmp(m);
+     }
 
      /*
       * Use an array of function pointers instead of if or switch
@@ -113,6 +128,14 @@ int* lc3k_and(lc3machine_t* m)
   return NULL;
 }
 
+int* lc3k_jmp(lc3machine_t* m)
+{
+  uint16_t inst = (m->memory)[m->pc];
+  m->pc = (m->registers)[LI_GET_SR1(inst)] - 1;
+
+  return NULL;
+}
+
 char* lc3k_userdebug_printregisters(lc3machine_t* m)
 {
   char* s = (char*)malloc(sizeof(char) * 100);
@@ -126,4 +149,21 @@ char* lc3k_userdebug_printregisters(lc3machine_t* m)
 	   m->pc);
 
   return s;
+}
+
+uint16_t lc3k_mk_not(uint16_t sr, uint16_t dr)
+{
+  uint16_t inst = INSTRUCTION_NOT;
+
+  LI_SET_DR(inst, dr);
+  LI_SET_SR1(inst, sr);
+  
+  return inst;
+}
+
+uint16_t lc3k_mk_jmp(uint16_t base_reg)
+{
+  uint16_t inst = INSTRUCTION_JMP;
+  LI_SET_BR(inst, base_reg);
+  return inst;
 }

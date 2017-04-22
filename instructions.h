@@ -85,6 +85,7 @@ uint16_t BIT_BUILD(int count,...)
  */
 #define LI_SET_DR(i, n)  do { i = i | n << 9; } while(0);
 #define LI_SET_SR1(i, n) do { i = i | n << 6; } while(0);
+#define LI_SET_BR(i, n) LI_SET_SR1(i, n)
 #define LI_SET_SR2(i, n) do { i = i | n; } while(0);
 #define LI_SET_IMM(i, n) do { if(i >= 0) i = i | n; \
   else {					    \
