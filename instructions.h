@@ -24,6 +24,16 @@ uint16_t BIT_BUILD(int count,...)
 
   return result;
 }
+
+int get_pcoffset9(uint16_t i)
+{
+  int offset = i & BIT_BUILD(9, 0, 1, 2, 3, 4, 5, 6, 7, 8);
+  if(!(offset & BIT_BUILD(1, 8)))
+    return offset;
+  offset = ~offset;
+  offset++;
+  return offset;
+}
 #endif
 
 /*
@@ -81,6 +91,12 @@ uint16_t BIT_BUILD(int count,...)
 #define INSTRUCTION_RESERVED OPCODE_RESERVED
 
 /*
+ * BE ADVISED:
+ * SR can be in either SR1's position, or DR's
+ * For NOT, SR is retrieved withh LI_GET_SR1
+ * For memory instructions, SR is retrieved with LI_GET_DR
+ */
+/*
  * Gets a given word's options
  */
 #define LI_GET_DR(i)  ((i & BIT_BUILD(3, 11, 10, 9)) >> 9)
@@ -121,5 +137,7 @@ uint16_t BIT_BUILD(int count,...)
 #define LI_IS_ANDI(i) LI_GET_REGMODE(i)
 
 #define lc3k_andigetval(i) (i & BIT_BUILD(5, 0, 1, 2, 3, 4))
+
+#define LI_GETCURRINST(machine) ( (m->memory)[m->pc]  )
 
 #endif /* INSTRUCTIONS_D */

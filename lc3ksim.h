@@ -28,6 +28,8 @@ int* lc3k_add(lc3machine_t* m);
 int* lc3k_and(lc3machine_t* m);
 int* lc3k_not(lc3machine_t* m);
 int* lc3k_jmp(lc3machine_t* m);
+int* lc3k_ld(lc3machine_t* m);
+int* lc3k_st(lc3machine_t* m);
 char* lc3k_userdebug_printregisters(lc3machine_t* m);
 
 

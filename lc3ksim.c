@@ -172,3 +172,25 @@ uint16_t lc3k_mk_ret()
 {
   return INSTRUCTION_RET;
 }
+
+int* lc3k_ld(lc3machine_t* m)
+{
+    uint16_t currinst = LI_GETCURRINST(m);
+    int offset = get_pcoffset9(currinst);
+    int reg = LI_GET_DR(currinst);
+    (m->registers)[reg] = (m->memory)[m->pc + offset];
+
+    return NULL;
+}
+
+int* lc3k_st(lc3machine_t* m)
+{
+    uint16_t currinst = LI_GETCURRINST(m);
+    int offset = get_pcoffset9(currinst);
+    int reg = LI_GET_DR(currinst);
+    (m->memory)[m->pc + offset] = (m->registers)[reg];
+
+    return NULL;
+}
+
+
